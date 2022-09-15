@@ -1,3 +1,8 @@
+"""
+This project aim to send a reply mail to my employer based on my availailabiliy
+First one to reply will get available shift.
+This project is designed to run on a raspberry pi server
+"""
 from __future__ import print_function
 import pickle
 import os.path
@@ -15,8 +20,10 @@ import csv
 from email.mime.text import MIMEText
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/gmail.modify']
+# list of days available and not available
 days_true = ["Monday","Tuesday","Wednesday","Thursday"]
 days_false = ["Friday","Saturday","Sunday"]
+#
 def check_send(msg_id):
 	res = None
 	done_ids =[]
@@ -62,7 +69,9 @@ def check_avail(data):
 		if avail:
 			res.append(avail)
 	return res
+
 def ret_avail(data):
+	# This function check of date strings in the message and validate the available dates
 	#print( data+"\n")
 	for d_f in days_true:
 		if d_f in data:
@@ -71,6 +80,7 @@ def ret_avail(data):
 	for d_t in days_false:
 		if d_t in data:
 			return None
+		
 def send_message(service, user_id, message):
   """Send an email message.
   Args:
@@ -148,6 +158,7 @@ def main():
 						sub = None
 						msg_id = None
 						thread_index = None
+						
 						for i in msg:
 							#print(i)
 							if i["name"] == "Message-ID":
