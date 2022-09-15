@@ -1,6 +1,6 @@
 """
 This project aim to send a reply mail to my employer based on my availailabiliy
-First one to reply will get available shift.
+First one to reply will get the available shift.
 This project is designed to run on a raspberry pi server
 """
 from __future__ import print_function
